@@ -3,10 +3,9 @@ package cz.kamosh.betExample;
 import java.util.Random;
 
 /**
- * Implementer may introduce any type of drawable bet extending this class. 
- * This is basic implementation based on random numbers.
+ * This is basic implementation of drawable bet based on random numbers.
  */
-public class DrawableBet implements CheckBet<DrawableBetResult> {    
+public final class DrawableRandomBet implements Bet<DrawableBetResult> {    
     private static Random rnd = new Random(System.currentTimeMillis());
     
     @Override
@@ -20,6 +19,15 @@ public class DrawableBet implements CheckBet<DrawableBetResult> {
                 return DrawableBetResult.DRAW;
         }
         throw new IllegalStateException("Disaster, random not returning value from range");
+    }
+    
+    /**
+     * Package private method suitable only for tests
+     * @param seed Value for random seed
+     */
+    static void setSeed(long seed)
+    {
+        rnd = new Random(seed);
     }
  
 }

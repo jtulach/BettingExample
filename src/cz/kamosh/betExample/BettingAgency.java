@@ -20,15 +20,15 @@ public final class BettingAgency {
         return cash;
     }
     
-    public double evaluateBet(double amount, DrawableBetResult expectedResult, DrawableBet checkDrawableBet) {
+    public double evaluateBet(double amount, DrawableBetResult expectedResult, DrawableRandomBet checkDrawableBet) {
         return innerEvaluateBet(amount, expectedResult, checkDrawableBet);
     }
 
-    public double evaluateBet(double amount, WinLostBetResult expectedResult, WinLostBet checkWinLooseBet) {
+    public double evaluateBet(double amount, WinLostBetResult expectedResult, WinLostTimeBasedBet checkWinLooseBet) {
         return innerEvaluateBet(amount, expectedResult, checkWinLooseBet);
     }
 
-    private double innerEvaluateBet(double amount, BetResult betResult, CheckBet checkBet) {
+    private double innerEvaluateBet(double amount, BetResult betResult, Bet checkBet) {
         if(amount < 0) {
             throw new IllegalArgumentException("Cannot bet negative money");
         }

@@ -1,9 +1,9 @@
 package cz.kamosh.betExample.apiUsers;
 
 import cz.kamosh.betExample.BettingAgency;
-import cz.kamosh.betExample.DrawableBet;
+import cz.kamosh.betExample.DrawableRandomBet;
 import cz.kamosh.betExample.DrawableBetResult;
-import cz.kamosh.betExample.WinLostBet;
+import cz.kamosh.betExample.WinLostTimeBasedBet;
 import cz.kamosh.betExample.WinLostBetResult;
 
 public class TestBetting {
@@ -22,15 +22,15 @@ public class TestBetting {
         // Let's try to bet 5 times.
         // Some of the bets might have draw results
         myCash -=EACH_STAKE_AMOUNT;
-        myCash += bettingAgency.evaluateBet(EACH_STAKE_AMOUNT, DrawableBetResult.DRAW, new DrawableBet());
+        myCash += bettingAgency.evaluateBet(EACH_STAKE_AMOUNT, DrawableBetResult.DRAW, new DrawableRandomBet());
         myCash -=EACH_STAKE_AMOUNT;
-        myCash += bettingAgency.evaluateBet(EACH_STAKE_AMOUNT, WinLostBetResult.LOST, new WinLostBet());
+        myCash += bettingAgency.evaluateBet(EACH_STAKE_AMOUNT, WinLostBetResult.LOST, new WinLostTimeBasedBet());
         myCash -=EACH_STAKE_AMOUNT;
-        myCash += bettingAgency.evaluateBet(EACH_STAKE_AMOUNT, DrawableBetResult.WIN, new DrawableBet());
+        myCash += bettingAgency.evaluateBet(EACH_STAKE_AMOUNT, DrawableBetResult.WIN, new DrawableRandomBet());
         myCash -=EACH_STAKE_AMOUNT;
-        myCash += bettingAgency.evaluateBet(EACH_STAKE_AMOUNT, WinLostBetResult.WIN, new WinLostBet());
+        myCash += bettingAgency.evaluateBet(EACH_STAKE_AMOUNT, WinLostBetResult.WIN, new WinLostTimeBasedBet());
         myCash -=EACH_STAKE_AMOUNT;
-        myCash += bettingAgency.evaluateBet(EACH_STAKE_AMOUNT, DrawableBetResult.LOST, new DrawableBet());                
+        myCash += bettingAgency.evaluateBet(EACH_STAKE_AMOUNT, DrawableBetResult.LOST, new DrawableRandomBet());                
         
         System.out.println("After betting score");
         showScore(bettingAgency, myCash);

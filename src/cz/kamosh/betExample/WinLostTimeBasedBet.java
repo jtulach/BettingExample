@@ -1,10 +1,9 @@
 package cz.kamosh.betExample;
 
-/**
- * Implementer may introduce any type of win/lost bet extending this class. 
- * This is basic implementation based on current time.
+/** 
+ * This is basic implementation of win/lost bet based on current time.
  */
-public class WinLostBet implements CheckBet<WinLostBetResult> {    
+public final class WinLostTimeBasedBet implements Bet<WinLostBetResult> {    
     
     @Override
     public WinLostBetResult checkBet() {
@@ -13,6 +12,6 @@ public class WinLostBet implements CheckBet<WinLostBetResult> {
         } else {
             return WinLostBetResult.LOST;
         }        
-    }
+    }    
 
 }
