@@ -5,10 +5,9 @@ import java.util.Random;
 /**
  * This is basic implementation of drawable bet based on random numbers.
  */
-public final class DrawableRandomBet implements Bet<DrawableBetResult> {    
+public final class DrawableRandomBet  {    
     private static Random rnd = new Random(System.currentTimeMillis());
     
-    @Override
     public DrawableBetResult checkBet() {
         switch(rnd.nextInt(3)) {
             case 0:

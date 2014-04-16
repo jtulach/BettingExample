@@ -21,22 +21,38 @@ public final class BettingAgency {
     }
     
     public double evaluateBet(double amount, DrawableBetResult expectedResult, DrawableRandomBet checkDrawableBet) {
-        return innerEvaluateBet(amount, expectedResult, checkDrawableBet);
+        class EvalDrawableBet extends Evaluate<DrawableRandomBet> {
+            @Override
+            protected InnerBetResult betResult(DrawableRandomBet b) {
+                return b.checkBet().getInnerBetResult();
+            }
+        }
+        return new EvalDrawableBet().innerEvaluateBet(amount, expectedResult, checkDrawableBet);
     }
 
     public double evaluateBet(double amount, WinLostBetResult expectedResult, WinLostTimeBasedBet checkWinLooseBet) {
-        return innerEvaluateBet(amount, expectedResult, checkWinLooseBet);
+        class EvalWinLostBet extends Evaluate<WinLostTimeBasedBet> {
+            @Override
+            protected InnerBetResult betResult(WinLostTimeBasedBet b) {
+                return b.checkBet().getInnerBetResult();
+            }
+        }
+        return new EvalWinLostBet().innerEvaluateBet(amount, expectedResult, checkWinLooseBet);
     }
-
-    private double innerEvaluateBet(double amount, BetResult betResult, Bet checkBet) {
-        if(amount < 0) {
-            throw new IllegalArgumentException("Cannot bet negative money");
+    
+    private abstract class Evaluate<BET> {
+        public double innerEvaluateBet(double amount, BetResult betResult, BET checkBet) {
+            if(amount < 0) {
+                throw new IllegalArgumentException("Cannot bet negative money");
+            }
+            cash += amount;
+            if (betResult(checkBet) == betResult.getInnerBetResult()) {
+                cash -= amount * BETTING_ODD;
+                return amount * BETTING_ODD; // User won
+            }
+            return 0;
         }
-        cash += amount;
-        if (checkBet.checkBet().getInnerBetResult() == betResult.getInnerBetResult()) {
-            cash -= amount * BETTING_ODD;
-            return amount * BETTING_ODD; // User won
-        }
-        return 0;
+        
+        protected abstract InnerBetResult betResult(BET b);
     }
 }
